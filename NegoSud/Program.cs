@@ -1,4 +1,5 @@
 using Common.Mapping;
+using Microsoft.OpenApi.Models;
 using NegoSud.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +28,31 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "NegoSud", Version = "v1" });
+    c.AddSecurityDefinition("Basic", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Scheme = "Basic",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Basic"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 var app = builder.Build();
 

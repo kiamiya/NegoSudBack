@@ -16,7 +16,7 @@ namespace NegoSud.Config
         public static void AddDependencies(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IFamilyService, FamilyService>();
             services.AddScoped<IRepository<Family>, FamilyRepository>();

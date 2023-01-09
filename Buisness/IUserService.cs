@@ -14,5 +14,7 @@ namespace Buisness
         Task<UserDTO> Update(UpdateUserDTO userDTO);
         Task<UserDTO> Get(int id);
         Task<List<UserDTO>> GetAll();
+        Task<UserDTO> GetSelfUser(string email);
+        Task<bool> Login(string email, string password);
     }
 }

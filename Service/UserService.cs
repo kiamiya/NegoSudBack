@@ -14,11 +14,11 @@ namespace Service
 {
     public class UserService : IUserService
     {
-        private IRepository<User> _userRepository;
+        private IUserRepository _userRepository;
         private IMapper _mapper;
         private IUnitOfWork _worker;
         
-        public UserService(IRepository<User> userRepository, IMapper mapper, IUnitOfWork worker)
+        public UserService(IUserRepository userRepository, IMapper mapper, IUnitOfWork worker)
         {
             _worker = worker;
             _mapper = mapper;
@@ -59,6 +59,17 @@ namespace Service
         {
             var users = _userRepository.GetAll();
             return _mapper.Map<List<UserDTO>>(users);
+        }
+
+        public async Task<UserDTO> GetSelfUser(string email)
+        {
+            var user = _userRepository.Get(email);
+            return _mapper.Map<UserDTO>(user);
+        }
+
+        public async Task<bool> Login(string email, string pass)
+        {
+            return _userRepository.Login(email, pass);
         }
     }
 }

@@ -34,6 +34,8 @@ namespace Service
 
         public async Task<ProductDTO> Add(CreateProductDTO user)
         {
+
+
             var userEntity = _mapper.Map<Product>(user);
             userEntity.Fournisseur = _fournisseurRepository.Get(user.Fournisseur);
             userEntity.Family = _familyRepository.Get(user.Family);

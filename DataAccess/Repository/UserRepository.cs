@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository
     {
         private NegoSudDBContext _context;
 
@@ -30,6 +30,16 @@ namespace DataAccess.Repository
         public User Get(int id)
         {
             return _context.Users.First(usr => usr.Id == id);
+        }
+
+        public bool Login(string email, string pass)
+        {
+            return _context.Users.First(usr => usr.Email == email).Password == pass;
+        }
+
+        public User Get(string email)
+        {
+            return _context.Users.First(usr => usr.Email == email);
         }
 
         public List<User> GetAll()
