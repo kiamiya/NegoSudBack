@@ -27,6 +27,9 @@ namespace NegoSud.Config
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
 
+            services.AddScoped<IPanierService, PanierService>();
+            services.AddScoped<IRepository<Panier>, PanierRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<NegoSudDBContext>();
             services.AddDbContext<NegoSudDBContext>(options => options.UseSqlServer(_configuration.GetConnectionString("wmgDb")));

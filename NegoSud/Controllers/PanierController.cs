@@ -1,5 +1,5 @@
-﻿using Buisness;
-using Common.DTO.Family;
+using Buisness;
+using Common.DTO.Panier;
 using Common.DTO.User;
 using Common.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +10,14 @@ namespace NegoSud.Controllers
 
     // POST 127.0.0.1:5000/familys
     [ApiController]
-    [Route("families")]
-    public class FamilyController : Controller
+    [Route("paniers")]
+    public class PanierController : Controller
     {
-        private readonly ILogger<FamilyController> _logger;
-        private readonly IFamilyService _familyBusiness;
+        private readonly ILogger<PanierController> _logger;
+        private readonly IPanierService _familyBusiness;
         private readonly IUserService _userBusiness;
 
-        public FamilyController(ILogger<FamilyController> logger, IFamilyService familyBusiness, IUserService userService)
+        public PanierController(ILogger<PanierController> logger, IPanierService familyBusiness, IUserService userService)
         {
             _logger = logger;
             _familyBusiness = familyBusiness;
@@ -25,19 +25,19 @@ namespace NegoSud.Controllers
         }
 
         [HttpGet("{id}", Name = "Get family")]
-        public async Task<FamilyDTO> Get(int id)
+        public async Task<PanierDTO> Get(int id)
         {
             return await _familyBusiness.Get(id);
         }
 
         [HttpGet("", Name = "Get all family")]
-        public async Task<List<FamilyDTO>> GetAll()
+        public async Task<List<PanierDTO>> GetAll()
         {
             return await _familyBusiness.GetAll();
         }
 
         [HttpPost("", Name = "Create family")]
-        public async Task<FamilyDTO> Add(CreateFamilyDTO family)
+        public async Task<PanierDTO> Add(CreatePanierDTO family)
         {
             UserDTO self = await GetLoggedUser();
             Console.WriteLine(self.Role);
@@ -51,7 +51,7 @@ namespace NegoSud.Controllers
         }
 
         [HttpPut("", Name = "Update family")]
-        public async Task<FamilyDTO> Update(UpdateFamilyDTO family)
+        public async Task<PanierDTO> Update(UpdatePanierDTO family)
         {
             UserDTO self = await GetLoggedUser();
 

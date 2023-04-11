@@ -23,11 +23,18 @@ namespace NegoSud.Controllers
             _userBusiness = userBusiness;
         }
 
-        [HttpGet("{me:alpha}", Name = "Get self user")]
-        public async Task<UserDTO> Get(string me)
+        [HttpGet("me", Name = "Get self user")]
+        public async Task<UserDTO> Get()
         {
-            if (me != "me") return null;
             return await GetLoggedUser();
+        }
+
+        [HttpGet("roles", Name = "Get all the roles")]
+        public async Task<Dictionary<string, int>> GetRoles()
+        {
+            return Enum.GetValues(typeof(Role))
+               .Cast<Role>()
+               .ToDictionary(t => t.ToString(), t => (int)t);
         }
 
         [HttpGet("{id}", Name = "Get user")]

@@ -14,6 +14,7 @@ namespace DataAccess.dbContext
         public DbSet<Family> Families { get; set; }
         public DbSet<Fournisseur> Fournisseurs{ get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Panier> Paniers { get; set; }
 
         public NegoSudDBContext(DbContextOptions<NegoSudDBContext> options):base(options)
         {
@@ -45,6 +46,12 @@ namespace DataAccess.dbContext
             modelBuilder.Entity<Product>(user =>
             {
                 user.ToTable("Products");
+                user.Property(x => x.Id).ValueGeneratedOnAdd();
+            });
+            
+            modelBuilder.Entity<Panier>(user =>
+            {
+                user.ToTable("Paniers");
                 user.Property(x => x.Id).ValueGeneratedOnAdd();
             });
         }
